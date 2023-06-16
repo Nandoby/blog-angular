@@ -1,4 +1,4 @@
-import { Article } from "./article.interface"
+import { Article } from "./article/article.interface"
 
 export interface Category {
   id: number

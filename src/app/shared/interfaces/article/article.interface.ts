@@ -1,5 +1,5 @@
-import { Category } from "./category.interface"
-import { User } from "./user.interface"
+import { Category } from "../category.interface"
+import { User } from "../user.interface"
 
 export interface Article {
   id: string

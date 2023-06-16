@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Article } from '../interfaces/article.interface';
+import { Article } from '../interfaces/article/article.interface';
 import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
@@ -16,9 +16,7 @@ export class ArticlesService {
   >(null);
 
   findAllArticles() {
-    this.httpClient.get<Article[]>(this.url).subscribe({
-      next: (value) => this.articles$.next(value),
-    });
+    return this.httpClient.get<Article[]>(this.url);
   }
 
   findLastArticles(numberOfArticles: number) {
@@ -30,5 +28,10 @@ export class ArticlesService {
     return this.httpClient.get<Article>(this.url+id)
   }
 
+  createArticle() {}
+
+  updateArticle() {}
+
+  removeArticle() {}
 
 }

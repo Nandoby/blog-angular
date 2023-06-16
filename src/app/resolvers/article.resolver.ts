@@ -3,7 +3,7 @@ import {
   ResolveFn,
   RouterStateSnapshot,
 } from '@angular/router';
-import { Article } from '../shared/interfaces/article.interface';
+import { Article } from '../shared/interfaces/article/article.interface';
 import { inject } from '@angular/core';
 import { ArticlesService } from '../shared/services/articles.service';
 

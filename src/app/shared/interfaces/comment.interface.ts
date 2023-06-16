@@ -1,4 +1,4 @@
-import { Article } from "./article.interface"
+import { Article } from "./article/article.interface"
 import { User } from "./user.interface"
 
 export interface Comment {

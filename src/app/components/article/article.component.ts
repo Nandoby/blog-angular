@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Article } from 'src/app/shared/interfaces/article.interface';
+import { Article } from 'src/app/shared/interfaces/article/article.interface';
 import { ArticlesService } from 'src/app/shared/services/articles.service';
 
 @Component({
