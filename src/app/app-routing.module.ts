@@ -1,9 +1,12 @@
 import {NgModule} from "@angular/core";
 import {RouterModule, Routes} from "@angular/router";
-import {HomeComponent} from "./home/home.component";
+import {HomeComponent} from "./components/home/home.component";
+import { ArticleComponent } from "./components/article/article.component";
+import { articleResolver } from "./resolvers/article.resolver";
 
 const routes: Routes = [
-  { path: '', component: HomeComponent }
+  { path: '', component: HomeComponent },
+  { path: 'article/:id', component: ArticleComponent, resolve: {data: articleResolver} }
 ]
 
 @NgModule({

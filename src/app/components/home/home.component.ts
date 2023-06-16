@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { ArticlesService } from '../shared/services/articles.service';
+import { ArticlesService } from '../../shared/services/articles.service';
 import { BehaviorSubject } from 'rxjs';
-import { Article } from '../shared/interfaces/article.interface';
+import { Article } from '../../shared/interfaces/article.interface';
 
 @Component({
   selector: 'app-home',

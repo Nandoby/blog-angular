@@ -9,7 +9,7 @@ import { BehaviorSubject } from 'rxjs';
 export class ArticlesService {
   constructor(private httpClient: HttpClient) {}
 
-  url: string = 'http://localhost:3000/api/articles';
+  url: string = 'http://localhost:3000/api/articles/';
 
   articles$: BehaviorSubject<Article[] | null> = new BehaviorSubject<
     Article[] | null
@@ -24,6 +24,10 @@ export class ArticlesService {
   findLastArticles(numberOfArticles: number) {
     return this.httpClient
       .get<Article[]>(this.url + `?lastArticles=${numberOfArticles}`);
+  }
+
+  findArticle(id: string|null) {
+    return this.httpClient.get<Article>(this.url+id)
   }
 
 
