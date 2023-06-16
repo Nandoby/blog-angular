@@ -2,7 +2,7 @@ import { Category } from "./category.interface"
 import { User } from "./user.interface"
 
 export interface Article {
-  id: number
+  id: string
   title: string
   content: string
   coverImage: string

@@ -15,13 +15,13 @@
   <div class="flex flex-wrap justify-center gap-x-12">
 
     <div class="card w-96 bg-base-100 shadow-xl hover:shadow-2xl mb-6" href="#"  *ngFor="let article of articles">
-      <a href="#"><img [src]="article.coverImage" [alt]="article.title"></a>
+      <a [routerLink]="'article/'+article.id"><img [src]="article.coverImage" [alt]="article.title"></a>
       <div class="card-body">
         <h2 class="card-title">{{ article.title }}</h2>
         <p>{{ article.content }}</p>
         <div class="card-actions justify-start mt-4 flex items-center">
           <div class="flex-1">
-            <a href="#" class="btn btn-primary">Lire <i class="fa-solid fa-arrow-right-long"></i></a>
+            <a [routerLink]="'article/'+article.id" class="btn btn-primary">Lire <i class="fa-solid fa-arrow-right-long"></i></a>
           </div>
           <div>
             <p class="text-sm text-neutral-500 flex-none">{{ article.comments.length }} commentaires</p>
