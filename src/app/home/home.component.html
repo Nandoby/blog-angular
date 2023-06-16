@@ -14,32 +14,22 @@
 
   <div class="flex flex-wrap justify-center gap-x-12">
 
-    <div class="card w-96 bg-base-100 shadow-xl hover:shadow-2xl" href="#">
-      <a href="#"><img src="./assets/images/article.jpg" alt="article"></a>
+    <div class="card w-96 bg-base-100 shadow-xl hover:shadow-2xl mb-6" href="#"  *ngFor="let article of articles">
+      <a href="#"><img [src]="article.coverImage" [alt]="article.title"></a>
       <div class="card-body">
-        <h2 class="card-title">Titre de l'article</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet, dolores...</p>
-        <div class="card-actions justify-start">
-          <a href="#" class="btn btn-primary">Lire <i class="fa-solid fa-arrow-right-long"></i></a>
+        <h2 class="card-title">{{ article.title }}</h2>
+        <p>{{ article.content }}</p>
+        <div class="card-actions justify-start mt-4 flex items-center">
+          <div class="flex-1">
+            <a href="#" class="btn btn-primary">Lire <i class="fa-solid fa-arrow-right-long"></i></a>
+          </div>
+          <div>
+            <p class="text-sm text-neutral-500 flex-none">{{ article.comments.length }} commentaires</p>
+            <p class="text-xs text-neutral-600 font-medium">Créé par <span class="font-bold">{{ article.user.username }}</span></p>
+          </div>
         </div>
       </div>
     </div>
-
-    <a class="card w-96 bg-base-100 shadow-xl hover:shadow-2xl" href="#">
-      <figure><img src="./assets/images/article.jpg" alt="article"></figure>
-      <div class="card-body">
-        <h2 class="card-title">Titre de l'article</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet, dolores...</p>
-      </div>
-    </a>
-
-    <a class="card w-96 bg-base-100 shadow-xl hover:shadow-2xl" href="#">
-      <figure><img src="./assets/images/article.jpg" alt="article"></figure>
-      <div class="card-body">
-        <h2 class="card-title">Titre de l'article</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet, dolores...</p>
-      </div>
-    </a>
 
   </div>
 
