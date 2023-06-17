@@ -18,6 +18,7 @@ export class ArticleComponent {
   ngOnInit() {
     this.activatedRoute.data.subscribe(({ data }) => {
       this.article = data
+      console.log(this.article)
     })
   }
 }
