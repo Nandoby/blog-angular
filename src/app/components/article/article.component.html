@@ -28,9 +28,7 @@
     <img class="mt-3 w-full" [src]="article.coverImage" [alt]="article.title">
 
     <!-- Contenu de l'article -->
-    <div class="bg-white mt-6 p-6">
-      {{ article.content }}
-    </div>
+    <div class="bg-white mt-6 p-6" [innerHtml]="article.content"></div>
 
   </section>
 
