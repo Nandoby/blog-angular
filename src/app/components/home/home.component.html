@@ -18,7 +18,7 @@
       <a [routerLink]="'article/'+article.id"><img [src]="article.coverImage" [alt]="article.title"></a>
       <div class="card-body">
         <h2 class="card-title">{{ article.title }}</h2>
-        <p>{{ article.content }}</p>
+        <p>{{ article.content | slice : 0 : 60 }} ...</p>
         <div class="card-actions justify-start mt-4 flex items-center">
           <div class="flex-1">
             <a [routerLink]="'article/'+article.id" class="btn btn-primary">Lire <i class="fa-solid fa-arrow-right-long"></i></a>
