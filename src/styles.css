@@ -2,3 +2,18 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.d-1 {
+  border: 1px solid red;
+  background: red;
+}
+
+.d-2 {
+  border: 1px solid green;
+  background: green;
+}
+
+.d-3 {
+  border: 1px solid purple;
+  background: purple;
+}

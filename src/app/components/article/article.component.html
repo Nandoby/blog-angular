@@ -1,5 +1,5 @@
 <main class="container mx-auto flex space-x-3">
-  <section class="p-6 w-8/12 bg-neutral-100 mt-9">
+  <section class="p-6 w-8/12 mt-9">
 
     <!-- Categories -->
     <div class="flex mt-5 space-x-3">
@@ -14,7 +14,7 @@
         <div class="w-9 rounded-full">
           <img [src]="article.user.picture">
         </div>
-        <span class="ml-3 text-sm text-neutral-500 font-semibold">Créé par {{ article.user.username }}</span>
+        <span class="ml-3 text-sm text-neutral-700 font-semibold">Rédigé par {{ article.user.username }}</span>
       </div>
 
       <!-- Nombre de commentaires -->
@@ -29,6 +29,41 @@
 
     <!-- Contenu de l'article -->
     <div class="bg-white mt-6 p-6" [innerHtml]="article.content"></div>
+
+    <hr class="mb-5">
+
+
+    <!-- Navigation entre articles -->
+    <div class="flex">
+
+      <div class="flex-1">
+        <a class="group" *ngIf="previousArticle" [routerLink]="'../'+previousArticle.id">
+          <div class="flex space-x-3">
+            <img class="w-24 group-hover:-translate-y-1 group-hover:ease-in group-hover:duration-300"
+                 [src]="previousArticle.coverImage" alt="">
+            <div>
+              <span class="text-xs uppercase font-medium">Article précédent</span>
+              <h6 class="text-sm font-black group-hover:text-red-500">{{ previousArticle.title }}</h6>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <div class="flex-1">
+        <a class="group" *ngIf="nextArticle" [routerLink]="'../'+nextArticle.id">
+          <div class="flex space-x-3">
+            <img class="w-24 group-hover:-translate-y-1 group-hover:ease-in group-hover:duration-300"
+                 [src]="nextArticle.coverImage" alt="">
+            <div>
+              <span class="text-xs uppercase font-medium">Article suivant</span>
+              <h6 class="text-sm font-black group-hover:text-red-500">{{ nextArticle.title }}</h6>
+            </div>
+          </div>
+        </a>
+      </div>
+
+    </div>
+
 
   </section>
 
