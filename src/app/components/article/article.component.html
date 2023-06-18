@@ -64,6 +64,26 @@
 
     </div>
 
+    <!-- Commentaires -->
+    <h3 class="my-6 text-xl font-semibold">Commentaires <span class="text-primary">{{ article.comments.length }}</span>
+    </h3>
+    <div *ngIf="article.comments">
+      <div *ngFor="let comment of article.comments" class="flex my-3">
+
+        <!-- User picture -->
+        <div class="avatar">
+          <div class="w-12 rounded-full">
+            <img [src]="comment.user.picture" alt="">
+          </div>
+        </div>
+
+        <div class="bg-neutral-100 p-3 text-neutral-800 flex-1 ml-3">
+          {{ comment.content }}
+        </div>
+
+      </div>
+    </div>
+
 
   </section>
 
