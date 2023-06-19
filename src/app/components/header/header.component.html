@@ -11,8 +11,7 @@
         <label tabindex="0" class="text-neutral-800 font-medium m-1 cursor-pointer hover:text-red-500"><i
           class="fa-solid fa-layer-group"></i> Catégories</label>
         <ul tabindex="0" class="dropdown-content menu p-2 shadow rounded-box w-52 bg-white">
-          <li><a href="#" class="text-neutral-800">Item 1</a></li>
-          <li><a href="#" class="text-neutral-800">Item 2</a></li>
+          <li *ngFor="let category of categories"><a href="#" class="text-neutral-800">{{ category.name | uppercase }}</a></li>
         </ul>
       </div>
 
