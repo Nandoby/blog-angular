@@ -1,3 +1,27 @@
-<p>articles works!</p>
+<main>
+  <section class="mt-12">
 
-{{ articles | json  }}
+
+
+    <div class="flex flex-wrap justify-center gap-x-12">
+      <!-- Cards -->
+      <div class="card w-96 bg-base-100 shadow-xl" *ngFor="let article of articles">
+        <a><img [src]="article.coverImage" [alt]="article.title"></a>
+        <div class="card-body">
+          <h2 class="card-title">{{ article.title }}</h2>
+          <p [innerHtml]="article.content | slice : 0 : 60"></p>
+          <div class="card-actions justify-start mt-4 flex items-center">
+            <div class="flex-1">
+              <a [routerLink]="['/article/'+article.id]" class="btn btn-primary">Lire <i class="fa-solid fa-arrow-right-long"></i></a>
+            </div>
+            <div>
+              <p class="text-sm text-neutral-500 flex-none">{{ article.comments.length }} commentaires</p>
+              <p class="text-xs text-neutral-600 font-medium">Créé par <span class="font-bold">{{ article.user.username }}</span></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+</main>
