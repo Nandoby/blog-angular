@@ -7,9 +7,16 @@ import {
   nextArticleResolver,
   previousArticleResolver,
 } from './resolvers/article.resolver';
+import { ArticlesComponent } from './components/articles/articles.component';
+import { articlesByCategoryResolver } from './resolvers/articlesByCategory.resolver';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
+  {
+    path: 'articles/category/:id',
+    component: ArticlesComponent,
+    resolve: { data: articlesByCategoryResolver },
+  },
   {
     path: 'article/:id',
     component: ArticleComponent,

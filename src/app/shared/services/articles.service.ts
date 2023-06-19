@@ -28,6 +28,10 @@ export class ArticlesService {
     return this.httpClient.get<Article>(this.url+id)
   }
 
+  findArticlesByCategory(id: string|null) {
+    return this.httpClient.get<Article[]>(this.url+'categories/'+id)
+  }
+
   createArticle() {}
 
   updateArticle() {}
