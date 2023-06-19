@@ -12,6 +12,7 @@ import { articlesByCategoryResolver } from './resolvers/articlesByCategory.resol
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
+  { path: 'articles', component: ArticlesComponent },
   {
     path: 'articles/category/:id',
     component: ArticlesComponent,
