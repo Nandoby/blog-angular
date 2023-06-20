@@ -1,6 +1,6 @@
 
 <div class="card w-96 bg-base-100 shadow-xl">
-  <a href="#"><img [src]="article.coverImage" [alt]="article.title"></a>
+  <a [routerLink]="['/article/'+article.id]"><img [src]="article.coverImage" [alt]="article.title"></a>
   <div class="card-body">
     <h2 class="card-title">{{ article.title }}</h2>
     <p [innerHTML]="article.content | slice : 0 : 60"></p>
