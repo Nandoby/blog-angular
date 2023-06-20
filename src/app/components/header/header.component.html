@@ -4,6 +4,16 @@
       class="text-red-500">DVLOP</span> <span class="text-black"> BLOG </span> <span
       class="text-black">/&#62;</span></a>
 
+
+    <div class="form-control">
+      <div class="input-group">
+        <input [(ngModel)]="search" type="text" placeholder="Rechecher..." class="input input-bordered" />
+        <button (click)="searchArticles()" class="btn btn-square">
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </button>
+      </div>
+    </div>
+
     <ul class="flex items-center">
       <li><a class="p-3 text-neutral-800 font-medium hover:text-red-500 rounded-sm mr-3" routerLink="/"><i
         class="fa-solid fa-house"></i> Accueil</a></li>

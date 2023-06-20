@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { CategoriesService } from '../../shared/services/categories.service';
 import {Category} from "../../shared/interfaces/category.interface";
+import {ArticlesService} from "../../shared/services/articles.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-header',
@@ -10,11 +11,20 @@ import {Category} from "../../shared/interfaces/category.interface";
 })
 export class HeaderComponent implements OnInit {
   constructor(
-    private httpClient: HttpClient,
-    private categoriesService: CategoriesService
+    private categoriesService: CategoriesService,
+    private articlesService: ArticlesService,
+    private router: Router
   ) {}
 
   categories!: Category[]
+
+  search: string = '';
+
+  async searchArticles() {
+    await this.router.navigate(['/search'], {
+      queryParams: { q: this.search }
+    })
+  }
 
   ngOnInit() {
     this.categoriesService.getCategories().subscribe({

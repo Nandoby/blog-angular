@@ -1,0 +1,22 @@
+
+<div class="card w-96 bg-base-100 shadow-xl">
+  <a href="#"><img [src]="article.coverImage" [alt]="article.title"></a>
+  <div class="card-body">
+    <h2 class="card-title">{{ article.title }}</h2>
+    <p [innerHTML]="article.content | slice : 0 : 60"></p>
+    <div  class="flex space-x-2 mt-3">
+      <span *ngFor="let categ of article.categories" class="badge badge-warning">{{ categ.name }}</span>
+    </div>
+    <div class="card-actions justify-start mt-4 flex items-center">
+      <div class="flex-1">
+        <a [routerLink]="['/article/'+article.id]" class="btn btn-primary">Lire <i
+          class="fa-solid fa-arrow-right-long"></i></a>
+      </div>
+      <div>
+        <p class="text-sm text-neutral-500 flex-none">{{ article.comments.length }} commentaires</p>
+        <p class="text-xs text-neutral-600 font-medium">Créé par <span
+          class="font-bold">{{ article.user.username }}</span></p>
+      </div>
+    </div>
+  </div>
+</div>

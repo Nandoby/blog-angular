@@ -38,4 +38,8 @@ export class ArticlesService {
 
   removeArticle() {}
 
+  searchArticle(query: string|null) {
+    return this.httpClient.get<Article[]>(`${this.url}search?q=${query}`)
+  }
+
 }

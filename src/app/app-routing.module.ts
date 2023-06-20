@@ -9,6 +9,7 @@ import {
 } from './resolvers/article.resolver';
 import { ArticlesComponent } from './components/articles/articles.component';
 import { articlesByCategoryResolver } from './resolvers/articlesByCategory.resolver';
+import {SearchComponent} from "./components/search/search.component";
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -27,6 +28,7 @@ const routes: Routes = [
       next: nextArticleResolver,
     },
   },
+  { path: 'search', component: SearchComponent }
 ];
 
 @NgModule({
