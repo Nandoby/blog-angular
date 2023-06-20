@@ -25,7 +25,6 @@ export class SearchComponent implements OnInit {
         this.articlesService.searchArticle(query.get('q')).subscribe({
           next: (article) => {
             this.articles = article
-            console.log(article)
           },
         });
       }
