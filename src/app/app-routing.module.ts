@@ -11,6 +11,7 @@ import { ArticlesComponent } from './components/articles/articles.component';
 import { articlesByCategoryResolver } from './resolvers/articlesByCategory.resolver';
 import { SearchComponent } from './components/search/search.component';
 import { LoginComponent } from './components/auth/login/login.component';
+import { RegisterComponent } from './components/auth/register/register.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -30,7 +31,13 @@ const routes: Routes = [
     },
   },
   { path: 'search', component: SearchComponent },
-  { path: 'auth', children: [{ path: 'login', component: LoginComponent }] },
+  {
+    path: 'auth',
+    children: [
+      { path: 'login', component: LoginComponent },
+      { path: 'register', component: RegisterComponent },
+    ],
+  },
 ];
 
 @NgModule({

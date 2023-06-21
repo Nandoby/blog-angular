@@ -1,1 +1,23 @@
-<p>Login works</p>
+<h1 class="text-center font-bold text-2xl mt-12">Connectez-vous</h1>
+
+<form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 w-1/2 mx-auto mt-12" [formGroup]="loginForm" (ngSubmit)="login()">
+  <div class="mb-4">
+    <label class="block text-gray-700 text-sm font-bold mb-2" for="email">
+      Email
+    </label>
+    <input formControlName="email" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight" type="text" placeholder="Email" id="email">
+  </div>
+  <div class="mb-6">
+    <label class="block text-gray-700 text-sm font-bold mb-2" for="password">
+      Mot de passe
+    </label>
+    <input formControlName="password" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight" type="password" placeholder="Mot de passe" id="password">
+  </div>
+  <div class="flex items-center justify-between">
+    <button class="btn btn-primary" type="submit">
+      Se connecter
+    </button>
+  </div>
+  <p class="text-sm mt-3">Pas encore inscrit ? <a class="link-primary" routerLink="../register">Inscrivez-vous</a></p>
+</form>
+

@@ -8,11 +8,12 @@ import { HomeComponent } from './components/home/home.component';
 import { AppRoutingModule } from './app-routing.module';
 import { ArticleComponent } from './components/article/article.component';
 import { ArticlesComponent } from './components/articles/articles.component';
-import { FormsModule } from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { SearchComponent } from './components/search/search.component';
 import { CardComponent } from './shared/components/card/card.component';
 import { LoginComponent } from './components/auth/login/login.component';
 import { JwtInterceptor } from './shared/interceptors/jwt.interceptor';
+import {RegisterComponent} from "./components/auth/register/register.component";
 
 @NgModule({
   declarations: [
@@ -24,8 +25,15 @@ import { JwtInterceptor } from './shared/interceptors/jwt.interceptor';
     SearchComponent,
     CardComponent,
     LoginComponent,
+    RegisterComponent
   ],
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
+  ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
   ],

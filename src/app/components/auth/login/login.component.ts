@@ -1,24 +1,33 @@
-import {Component} from "@angular/core";
-import {AuthService} from "../../../shared/services/auth.service";
-
+import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../../../shared/services/auth.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css'],
 })
-export class LoginComponent {
-  user = {
-    email: '',
-    password: ''
+export class LoginComponent implements OnInit {
+  loginForm!: FormGroup;
+
+  constructor(
+    private formBuilder: FormBuilder,
+    private authService: AuthService
+  ) {}
+
+  ngOnInit() {
+    this.loginForm = this.formBuilder.group({
+      email: ['', Validators.required],
+      password: ['', Validators.required],
+    });
   }
 
-  constructor (private authService: AuthService) { }
-
   login() {
-    this.authService.login(this.user).subscribe(
-      success => console.log('vous etes connecté'),
-      error => console.log('Erreur de connexion')
-    )
+    if (this.loginForm.valid) {
+      this.authService.login(this.loginForm.value).subscribe({
+        next: (success) => console.log('Vous êtes connecté'),
+        error: (error) => console.log('Erreur de connexion'),
+      });
+    }
   }
 }
