@@ -26,7 +26,7 @@
       </div>
 
       <!-- Inscription/Connexion -->
-      <li><a class="p-3 text-neutral-800 font-medium hover:text-red-500 rounded-sm" routerLink="auth/login"><i
+      <li *ngIf="!isLoggedIn"><a class="p-3 text-neutral-800 font-medium hover:text-red-500 rounded-sm" routerLink="auth/login"><i
         class="fa-solid fa-user"></i> Inscription / Connexion</a></li>
     </ul>
   </nav>

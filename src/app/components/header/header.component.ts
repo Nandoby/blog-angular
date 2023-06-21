@@ -3,6 +3,7 @@ import { CategoriesService } from '../../shared/services/categories.service';
 import {Category} from "../../shared/interfaces/category.interface";
 import {ArticlesService} from "../../shared/services/articles.service";
 import {Router} from "@angular/router";
+import {AuthService} from "../../shared/services/auth.service";
 
 @Component({
   selector: 'app-header',
@@ -13,12 +14,15 @@ export class HeaderComponent implements OnInit {
   constructor(
     private categoriesService: CategoriesService,
     private articlesService: ArticlesService,
-    private router: Router
+    private router: Router,
+    private authService: AuthService
   ) {}
 
   categories!: Category[]
 
   search: string = '';
+
+  isLoggedIn: boolean = this.authService.loggedIn
 
   async searchArticles() {
     await this.router.navigate(['/search'], {
