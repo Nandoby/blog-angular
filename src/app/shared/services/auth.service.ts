@@ -1,7 +1,7 @@
 import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 import {LoginInterface} from "../interfaces/auth/login.interface";
-import {Observable, tap} from "rxjs";
+import {BehaviorSubject, Observable, tap} from "rxjs";
 import {RegisterInterface} from "../interfaces/auth/register.interface";
 
 interface AuthResponse {
@@ -26,10 +26,17 @@ export class AuthService {
 
   constructor(private httpClient: HttpClient) { }
 
+  private loggedIn = new BehaviorSubject<boolean>(false)
+
+  public get isLoggedIn() {
+    return this.loggedIn.asObservable()
+  }
+
   login(user: LoginInterface): Observable<AuthResponse> {
     return this.httpClient.post<AuthResponse>(this.loginURL, user).pipe(
       tap((res) => {
-        localStorage.setItem('access_token', res.access_token)
+        localStorage.setItem('access_token', res.access_token);
+        this.loggedIn.next(true)
       })
     )
   }
@@ -40,10 +47,7 @@ export class AuthService {
 
   logout() {
     localStorage.removeItem('access_token')
-  }
-
-  public get loggedIn(): boolean {
-    return localStorage.getItem('access_token') !== null
+    this.loggedIn.next(false);
   }
 
 }
