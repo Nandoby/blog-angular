@@ -9,6 +9,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
+  emailError: string|null = null
+  passwordError: string|null = null
 
   constructor(
     private formBuilder: FormBuilder,
@@ -28,6 +30,8 @@ export class LoginComponent implements OnInit {
         next: (success) => console.log('Vous êtes connecté'),
         error: (error) => console.log('Erreur de connexion'),
       });
+    } else {
+      this.loginForm.markAllAsTouched()
     }
   }
 }

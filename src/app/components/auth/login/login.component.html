@@ -5,14 +5,22 @@
     <label class="block text-gray-700 text-sm font-bold mb-2" for="email">
       Email
     </label>
+
     <input formControlName="email" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight" type="text" placeholder="Email" id="email">
+    <div *ngIf="loginForm.get('email')?.hasError('required') && loginForm.get('email')?.touched" class="text-red-500 text-xs italic mt-2">
+      Veuillez entrer votre email.
+    </div>
   </div>
   <div class="mb-6">
     <label class="block text-gray-700 text-sm font-bold mb-2" for="password">
       Mot de passe
     </label>
-    <input formControlName="password" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight" type="password" placeholder="Mot de passe" id="password">
+    <input formControlName="password" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight" type="password" placeholder="Mot de passe" id="password">
+    <div *ngIf="loginForm.get('password')?.hasError('required') && loginForm.get('password')?.touched" class="text-red-500 text-xs italic mt-2">
+      Veuillez entrer votre mot de passe.
+    </div>
   </div>
+
   <div class="flex items-center justify-between">
     <button class="btn btn-primary" type="submit">
       Se connecter
