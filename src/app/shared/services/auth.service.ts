@@ -26,7 +26,11 @@ export class AuthService {
 
   constructor(private httpClient: HttpClient) { }
 
-  private loggedIn = new BehaviorSubject<boolean>(false)
+  private loggedIn = new BehaviorSubject<boolean>(this.hasToken())
+
+  hasToken(): boolean {
+    return !!localStorage.getItem('access_token')
+  }
 
   public get isLoggedIn() {
     return this.loggedIn.asObservable()

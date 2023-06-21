@@ -30,6 +30,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
     });
   }
 
+  public logout() {
+    this.authService.logout()
+  }
+
   ngOnInit() {
     this.categoriesService.getCategories().subscribe({
       next: (value: Category[]) => {
