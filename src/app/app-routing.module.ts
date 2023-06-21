@@ -9,7 +9,8 @@ import {
 } from './resolvers/article.resolver';
 import { ArticlesComponent } from './components/articles/articles.component';
 import { articlesByCategoryResolver } from './resolvers/articlesByCategory.resolver';
-import {SearchComponent} from "./components/search/search.component";
+import { SearchComponent } from './components/search/search.component';
+import { LoginComponent } from './components/auth/login/login.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -28,13 +29,16 @@ const routes: Routes = [
       next: nextArticleResolver,
     },
   },
-  { path: 'search', component: SearchComponent }
+  { path: 'search', component: SearchComponent },
+  { path: 'auth', children: [{ path: 'login', component: LoginComponent }] },
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, {
-    scrollPositionRestoration: 'enabled',
-  })],
+  imports: [
+    RouterModule.forRoot(routes, {
+      scrollPositionRestoration: 'enabled',
+    }),
+  ],
   exports: [RouterModule],
 })
 export class AppRoutingModule {}
