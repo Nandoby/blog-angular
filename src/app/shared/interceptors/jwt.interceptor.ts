@@ -1,5 +1,9 @@
-import {Injectable} from "@angular/core";
-import {HttpHandler, HttpInterceptor, HttpRequest} from "@angular/common/http";
+import { Injectable } from '@angular/core';
+import {
+  HttpHandler,
+  HttpInterceptor,
+  HttpRequest,
+} from '@angular/common/http';
 
 @Injectable()
 export class JwtInterceptor implements HttpInterceptor {
@@ -9,11 +13,11 @@ export class JwtInterceptor implements HttpInterceptor {
     if (token) {
       request = request.clone({
         setHeaders: {
-          Authorization: `Bearer ${token}`
-        }
-      })
+          Authorization: `Bearer ${token}`,
+        },
+      });
     }
 
-    return next.handle(request)
+    return next.handle(request);
   }
 }

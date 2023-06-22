@@ -1,10 +1,11 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CategoriesService } from '../../shared/services/categories.service';
-import {Category} from "../../shared/interfaces/category.interface";
-import {ArticlesService} from "../../shared/services/articles.service";
-import {Router} from "@angular/router";
-import {AuthService} from "../../shared/services/auth.service";
-import {Subscription} from "rxjs";
+import { Category } from '../../shared/interfaces/category.interface';
+import { ArticlesService } from '../../shared/services/articles.service';
+import { Router } from '@angular/router';
+import { AuthService } from '../../shared/services/auth.service';
+import { Subscription } from 'rxjs';
+import { User } from '../../shared/interfaces/user.interface';
 
 @Component({
   selector: 'app-header',
@@ -21,7 +22,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   categories!: Category[];
   search: string = '';
-  isLoggedIn!: boolean;
+  user!: User | null;
   subscription!: Subscription;
 
   async searchArticles() {
@@ -31,7 +32,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   public logout() {
-    this.authService.logout()
+    this.authService.logout();
   }
 
   ngOnInit() {
@@ -41,12 +42,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
       },
     });
 
-    this.subscription = this.authService.isLoggedIn.subscribe((loggedIn) => {
-      this.isLoggedIn = loggedIn;
+    this.subscription = this.authService.getCurrentUser().subscribe({
+      next: (user) => {
+        this.user = user;
+      },
     });
   }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe()
+    this.subscription.unsubscribe();
   }
 }
