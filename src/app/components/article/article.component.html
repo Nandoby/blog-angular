@@ -30,6 +30,11 @@
     <!-- Contenu de l'article -->
     <div class="bg-white mt-6 p-6" [innerHtml]="article.content"></div>
 
+    <!-- Edition e l'article si on est le propriétaire -->
+    <div *ngIf="user?.id === article.user.id" class="flex justify-end">
+      <button class="btn btn-primary my-3"><i class="fa-solid fa-pen"></i> Modifier</button>
+    </div>
+
     <hr class="mb-5">
 
 

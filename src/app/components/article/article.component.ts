@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Article } from 'src/app/shared/interfaces/article/article.interface';
 import { HttpErrorResponse } from '@angular/common/http';
+import { User } from 'src/app/shared/interfaces/user.interface';
+import { AuthService } from 'src/app/shared/services/auth.service';
+import { tap } from 'rxjs';
 
 @Component({
   selector: 'app-article',
@@ -9,11 +12,13 @@ import { HttpErrorResponse } from '@angular/common/http';
   styleUrls: ['./article.component.css'],
 })
 export class ArticleComponent implements OnInit {
-  constructor(private activatedRoute: ActivatedRoute) {}
+  constructor(private activatedRoute: ActivatedRoute, private authService: AuthService) {}
 
   article!: Article;
   previousArticle!: Article | null;
   nextArticle!: Article | null;
+
+  user!: User|null
 
   ngOnInit() {
     this.activatedRoute.data.subscribe(({ data }) => {
@@ -34,6 +39,10 @@ export class ArticleComponent implements OnInit {
       }
 
     });
+
+    this.authService.getCurrentUser().subscribe({
+      next: (user) => this.user = user
+    })
 
   }
 }
