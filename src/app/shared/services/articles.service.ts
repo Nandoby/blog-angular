@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Article } from '../interfaces/article/article.interface';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable, map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -40,6 +40,12 @@ export class ArticlesService {
 
   searchArticle(query: string|null) {
     return this.httpClient.get<Article[]>(`${this.url}search?q=${query}`)
+  }
+
+  getTotalArticles(): Observable<number> {
+    return this.findAllArticles().pipe(
+      map(articles => articles.length)
+    )
   }
 
 }
