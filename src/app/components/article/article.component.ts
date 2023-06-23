@@ -4,7 +4,7 @@ import { Article } from 'src/app/shared/interfaces/article/article.interface';
 import { HttpErrorResponse } from '@angular/common/http';
 import { User } from 'src/app/shared/interfaces/user.interface';
 import { AuthService } from 'src/app/shared/services/auth.service';
-import { tap } from 'rxjs';
+import { BehaviorSubject, tap } from 'rxjs';
 
 @Component({
   selector: 'app-article',
@@ -17,10 +17,15 @@ export class ArticleComponent implements OnInit {
   article!: Article;
   previousArticle!: Article | null;
   nextArticle!: Article | null;
+  private isEdited$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false)
+  isEdited!: boolean
 
   user!: User|null
 
   ngOnInit() {
+
+    this.isEdited$.subscribe((edit) => this.isEdited = edit)
+
     this.activatedRoute.data.subscribe(({ data }) => {
       this.article = data;
     });
@@ -45,4 +50,10 @@ export class ArticleComponent implements OnInit {
     })
 
   }
+
+  clickEdition() {
+    this.isEdited$.next(true)
+  }
+
+
 }
