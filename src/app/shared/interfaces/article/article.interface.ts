@@ -11,3 +11,10 @@ export interface Article {
   comments: Comment[]
   categories: Category[]
 }
+
+export interface ArticleUpdate {
+  title: string
+  content: string
+  coverImage: string
+  categories: Category[]
+}

@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Article } from '../interfaces/article/article.interface';
+import {Article, ArticleUpdate} from '../interfaces/article/article.interface';
 import { BehaviorSubject, Observable, map } from 'rxjs';
 
 @Injectable({
@@ -34,7 +34,9 @@ export class ArticlesService {
 
   createArticle() {}
 
-  updateArticle() {}
+  updateArticle(id: string, body: ArticleUpdate) {
+    return this.httpClient.put<Article>(this.url+id, body)
+  }
 
   removeArticle() {}
 
