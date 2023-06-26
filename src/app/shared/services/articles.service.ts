@@ -42,10 +42,12 @@ export class ArticlesService {
     return this.httpClient.get<Article[]>(`${this.url}search?q=${query}`)
   }
 
-  getTotalArticles(): Observable<number> {
-    return this.findAllArticles().pipe(
-      map(articles => articles.length)
-    )
+  previousArticle(id: string|null) {
+    return this.httpClient.get<Article>(`${this.url}${id}/prev`)
+  }
+
+  nextArticle(id: string|null) {
+    return this.httpClient.get<Article>(`${this.url}${id}/next`)
   }
 
 }
