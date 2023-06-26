@@ -14,8 +14,7 @@ import { CardComponent } from './shared/components/card/card.component';
 import { LoginComponent } from './components/auth/login/login.component';
 import { JwtInterceptor } from './shared/interceptors/jwt.interceptor';
 import { RegisterComponent } from './components/auth/register/register.component';
-import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
-import {EditorModule} from "@tinymce/tinymce-angular";
+import { EditorModule } from '@tinymce/tinymce-angular';
 
 @NgModule({
   declarations: [
@@ -35,8 +34,7 @@ import {EditorModule} from "@tinymce/tinymce-angular";
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    CKEditorModule,
-    EditorModule
+    EditorModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
