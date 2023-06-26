@@ -18,11 +18,23 @@
   background: purple;
 }
 
-/* CK EDITOR Style */
-.ck .ck-content h2 {
-  @apply text-2xl font-bold
+/*!* CK EDITOR Style *!*/
+/*.ck .ck-content h2 {*/
+/*  @apply text-2xl font-bold*/
+/*}*/
+
+/*.ck .ck-content h3 {*/
+/*  @apply text-xl font-bold*/
+/*}*/
+
+.article-content h1 {
+  @apply text-3xl font-bold my-2
 }
 
-.ck .ck-content h3 {
-  @apply text-xl font-bold
+.article-content h3 {
+  @apply text-xl font-bold my-2
+}
+
+.article-content p {
+  @apply leading-relaxed;
 }

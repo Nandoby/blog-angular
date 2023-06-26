@@ -28,15 +28,19 @@
     <img class="mt-3 w-full" [src]="article.coverImage" [alt]="article.title">
 
     <!-- Contenu de l'article -->
-    <div *ngIf="!isEdited; else edit" class="bg-white mt-6 p-6" [innerHtml]="article.content"></div>
+    <div *ngIf="!isEdited; else edit" [innerHtml]="article.content" class="article-content"></div>
 
     <ng-template #edit>
-      <ckeditor [config]="model.config" [editor]="Editor" [(ngModel)]="model.editorData"></ckeditor>
+      <!--      <ckeditor [config]="model.config" [editor]="Editor" [(ngModel)]="model.editorData"></ckeditor>-->
+      <editor [init]="tinyConfig" plugins="image preview" apiKey="ye8kq6lbncaok8cqazzoxs36kff3krlm3g59n8hqddyzur6v" initialValue="<p>Hello world</p>"
+              [(ngModel)]="tinyData"></editor>
     </ng-template>
 
     <!-- Edition e l'article si on est le propriétaire -->
     <div *ngIf="user?.id === article.user.id" class="flex justify-end">
-      <button *ngIf="!isEdited" (click)="clickEdition()" class="btn btn-info my-3"><i class="fa-solid fa-pen"></i> Modifier</button>
+      <button *ngIf="!isEdited" (click)="clickEdition()" class="btn btn-info my-3"><i class="fa-solid fa-pen"></i>
+        Modifier
+      </button>
       <button *ngIf="isEdited" class="btn btn-success my-3" (click)="confirmEdition()">Confirmer</button>
     </div>
 

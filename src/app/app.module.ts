@@ -8,13 +8,14 @@ import { HomeComponent } from './components/home/home.component';
 import { AppRoutingModule } from './app-routing.module';
 import { ArticleComponent } from './components/article/article.component';
 import { ArticlesComponent } from './components/articles/articles.component';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SearchComponent } from './components/search/search.component';
 import { CardComponent } from './shared/components/card/card.component';
 import { LoginComponent } from './components/auth/login/login.component';
 import { JwtInterceptor } from './shared/interceptors/jwt.interceptor';
-import {RegisterComponent} from "./components/auth/register/register.component";
-import {CKEditorModule} from "@ckeditor/ckeditor5-angular";
+import { RegisterComponent } from './components/auth/register/register.component';
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
+import {EditorModule} from "@tinymce/tinymce-angular";
 
 @NgModule({
   declarations: [
@@ -26,7 +27,7 @@ import {CKEditorModule} from "@ckeditor/ckeditor5-angular";
     SearchComponent,
     CardComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
   ],
   imports: [
     BrowserModule,
@@ -34,7 +35,8 @@ import {CKEditorModule} from "@ckeditor/ckeditor5-angular";
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    CKEditorModule
+    CKEditorModule,
+    EditorModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
