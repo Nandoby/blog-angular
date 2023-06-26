@@ -5,6 +5,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { User } from 'src/app/shared/interfaces/user.interface';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { BehaviorSubject, tap } from 'rxjs';
+import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 
 @Component({
   selector: 'app-article',
@@ -14,13 +15,13 @@ import { BehaviorSubject, tap } from 'rxjs';
 export class ArticleComponent implements OnInit {
   constructor(private activatedRoute: ActivatedRoute, private authService: AuthService) {}
 
-  article!: Article;
-  previousArticle!: Article | null;
-  nextArticle!: Article | null;
+  public article!: Article;
+  public previousArticle!: Article | null;
+  public nextArticle!: Article | null;
+  public isEdited!: boolean
+  public user!: User|null
   private isEdited$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false)
-  isEdited!: boolean
-
-  user!: User|null
+  public Editor = ClassicEditor
 
   ngOnInit() {
 
@@ -53,6 +54,10 @@ export class ArticleComponent implements OnInit {
 
   clickEdition() {
     this.isEdited$.next(true)
+  }
+
+  confirmEdition() {
+    this.isEdited$.next(false)
   }
 
 

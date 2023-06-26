@@ -31,13 +31,13 @@
     <div *ngIf="!isEdited; else edit" class="bg-white mt-6 p-6" [innerHtml]="article.content"></div>
 
     <ng-template #edit>
-      <p>Edition</p>
+      <ckeditor [editor]="Editor" data="<p>Hello</p>"></ckeditor>
     </ng-template>
 
     <!-- Edition e l'article si on est le propriétaire -->
     <div *ngIf="user?.id === article.user.id" class="flex justify-end">
       <button *ngIf="!isEdited" (click)="clickEdition()" class="btn btn-info my-3"><i class="fa-solid fa-pen"></i> Modifier</button>
-      <button *ngIf="isEdited" class="btn btn-success my-3">Confirmer</button>
+      <button *ngIf="isEdited" class="btn btn-success my-3" (click)="confirmEdition()">Confirmer</button>
     </div>
 
     <hr class="mb-5">
