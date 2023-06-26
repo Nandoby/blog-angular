@@ -17,3 +17,12 @@
   border: 1px solid purple;
   background: purple;
 }
+
+/* CK EDITOR Style */
+.ck .ck-content h2 {
+  @apply text-2xl font-bold
+}
+
+.ck .ck-content h3 {
+  @apply text-xl font-bold
+}

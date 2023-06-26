@@ -28,6 +28,8 @@ export class ArticleComponent implements OnInit {
   public Editor = ClassicEditor;
   public model = {
     editorData: '<p>Hello, world!</p>',
+    config: {
+    }
   };
   private isEdited$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(
     false
@@ -38,6 +40,7 @@ export class ArticleComponent implements OnInit {
 
     this.activatedRoute.data.subscribe(({ data }) => {
       this.article = data;
+      this.model.editorData = this.article.content
     });
 
     this.activatedRoute.data.subscribe(({ previous, next }) => {
@@ -63,11 +66,30 @@ export class ArticleComponent implements OnInit {
     this.isEdited$.next(true);
   }
 
+  postProcessEditorData(html: string): string {
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(html, 'text/html');
+
+    // Ajouter la classe 'title' à tous les éléments <h1>
+    doc.querySelectorAll('h2').forEach(h2 => {
+      h2.classList.add('text-2xl', 'font-bold')
+    })
+
+    doc.querySelectorAll('h3').forEach(h3 => {
+      h3.classList.add('text-xl', 'font-bold')
+    })
+
+    // Sérialiser en HTML
+    return doc.body.innerHTML
+  }
+
   confirmEdition() {
     const { title, id, categories, coverImage } = this.article
+    const processedData = this.postProcessEditorData(this.model.editorData);
+    console.log(processedData)
     const body: ArticleUpdate = {
       title,
-      content: this.model.editorData,
+      content: processedData,
       coverImage,
       categories,
     }
@@ -75,7 +97,6 @@ export class ArticleComponent implements OnInit {
     this.articleService.updateArticle(this.article.id, body).subscribe({
       next: (value) => {
         this.article = { ...this.article, ...value }
-        console.log(this.article)
       }
     })
 
