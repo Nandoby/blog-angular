@@ -6,6 +6,7 @@ import { User } from 'src/app/shared/interfaces/user.interface';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { BehaviorSubject } from 'rxjs';
 import { ArticlesService } from '../../shared/services/articles.service';
+import {NotificationService} from "../../shared/services/notification.service";
 
 @Component({
   selector: 'app-article',
@@ -16,7 +17,8 @@ export class ArticleComponent implements OnInit {
   constructor(
     private activatedRoute: ActivatedRoute,
     private authService: AuthService,
-    private articleService: ArticlesService
+    private articleService: ArticlesService,
+    private notificationService: NotificationService
   ) {}
 
   public article!: Article;
@@ -78,6 +80,8 @@ export class ArticleComponent implements OnInit {
         this.article = { ...this.article, ...value }
       }
     })
+
+    this.notificationService.showNotification('La modification a bien été appliquée', 'success');
 
   }
 }

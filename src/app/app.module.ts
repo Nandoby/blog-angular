@@ -15,6 +15,7 @@ import { LoginComponent } from './components/auth/login/login.component';
 import { JwtInterceptor } from './shared/interceptors/jwt.interceptor';
 import { RegisterComponent } from './components/auth/register/register.component';
 import { EditorModule } from '@tinymce/tinymce-angular';
+import { NotificationComponent } from './shared/components/notification/notification.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { EditorModule } from '@tinymce/tinymce-angular';
     CardComponent,
     LoginComponent,
     RegisterComponent,
+    NotificationComponent,
   ],
   imports: [
     BrowserModule,
