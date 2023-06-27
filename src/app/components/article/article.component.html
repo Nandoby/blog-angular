@@ -1,38 +1,31 @@
-<main class="container mx-auto flex space-x-3">
-  <section class="p-6 w-8/12 mt-9">
-
-    <!-- Categories -->
-    <div class="flex mt-5 space-x-3">
-      <div *ngFor="let category of article.categories"
-           class="bg-primary text-primary-content p-2 rounded font-bold text-sm">{{ category.name | uppercase }}</div>
-    </div>
-    <h1 class="text-3xl font-bold mt-3">{{ article.title }}</h1>
-
-    <!-- Auteur de l'article -->
-    <div class="flex items-center mt-3">
-      <div class="avatar flex items-center flex-1">
-        <div class="w-9 rounded-full">
-          <img [src]="article.user.picture">
+<main>
+  <header class="bg-black text-white py-6">
+    <div class="container mx-auto flex justify-between">
+      <div>
+        <h1 class="text-3xl font-bold mt-52">{{ article.title}}</h1>
+        <!-- Categories -->
+        <div class="flex mt-5 space-x-3">
+          <div *ngFor="let category of article.categories"
+               class="bg-primary text-primary-content p-2 rounded font-bold text-sm">{{ category.name | uppercase }}</div>
         </div>
-        <span class="ml-3 text-sm text-neutral-700 font-semibold">Rédigé par {{ article.user.username }}</span>
+        <div class="flex items-center mt-6">
+          <img class="w-16 rounded-full mr-3" src="{{ article.user.picture }}">
+          <span>{{ article.user.username }}</span>
+        </div>
       </div>
-
-      <!-- Nombre de commentaires -->
-      <div class="flex items-center space-x-2">
-        <i class="fa-solid fa-envelope text-red-500"></i>
-        <span class="text-sm font-bold">{{ article.comments.length }}</span>
-      </div>
+      <img class="w-4/12 h-auto object-cover relative top-24 rounded-md" [src]="article.coverImage"
+           [alt]="article.title">
     </div>
-
-    <!-- Image de l'article -->
-    <img class="mt-3 w-full" [src]="article.coverImage" [alt]="article.title">
+  </header>
+  <section class="p-6 w-full mt-24 container mx-auto">
 
     <!-- Contenu de l'article -->
     <div *ngIf="!isEdited; else edit" [innerHtml]="article.content" class="article-content my-6"></div>
 
     <ng-template #edit>
       <!--      <ckeditor [config]="model.config" [editor]="Editor" [(ngModel)]="model.editorData"></ckeditor>-->
-      <editor [init]="tinyConfig" plugins="image preview" apiKey="ye8kq6lbncaok8cqazzoxs36kff3krlm3g59n8hqddyzur6v" initialValue="<p>Hello world</p>"
+      <editor [init]="tinyConfig" plugins="image preview" apiKey="ye8kq6lbncaok8cqazzoxs36kff3krlm3g59n8hqddyzur6v"
+              initialValue="<p>Hello world</p>"
               [(ngModel)]="tinyData"></editor>
     </ng-template>
 
@@ -101,8 +94,8 @@
 
   </section>
 
-  <aside class="w-4/12 bg-neutral-50 mt-9 p-6">
-    <h1 class="text-2xl font-bold mt-3">Ici va se placer mon aside</h1>
-  </aside>
+  <!--  <aside class="w-4/12 bg-neutral-50 mt-9 p-6">-->
+  <!--    <h1 class="text-2xl font-bold mt-3">Ici va se placer mon aside</h1>-->
+  <!--  </aside>-->
 </main>
 
