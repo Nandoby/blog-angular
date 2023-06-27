@@ -4,6 +4,7 @@ import { LoginInterface } from '../interfaces/auth/login.interface';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { RegisterInterface } from '../interfaces/auth/register.interface';
 import { User } from '../interfaces/user.interface';
+import {NotificationService} from "./notification.service";
 
 interface AuthResponse {
   access_token: string;
@@ -31,7 +32,7 @@ export class AuthService {
   loginURL: string = 'http://localhost:3000/api/auth/login';
   registerURL: string = 'http://localhost:3000/api/auth/register';
 
-  constructor(private httpClient: HttpClient) {}
+  constructor(private httpClient: HttpClient, private notificationService: NotificationService) {}
 
   private user: BehaviorSubject<User | null> = new BehaviorSubject<User | null>(
     this.getUser()
@@ -60,9 +61,19 @@ export class AuthService {
     return this.httpClient.post<RegisterResponse>(this.registerURL, user);
   }
 
-  logout() {
-    localStorage.removeItem('access_token');
-    localStorage.removeItem('user');
-    this.user.next(null);
+  logout(showNotification = false) {
+    if (showNotification) {
+      this.notificationService.showNotification('Votre session a expiré. Veuillez vous reconnecter', 'error')
+      setTimeout(() => {
+        localStorage.removeItem('access_token');
+        localStorage.removeItem('user');
+        this.user.next(null);
+      }, 2000) // Retarder la déconnexion de 2 secondes
+    } else {
+      localStorage.removeItem('access_token');
+      localStorage.removeItem('user');
+      this.user.next(null);
+    }
+
   }
 }
