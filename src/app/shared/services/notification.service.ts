@@ -15,7 +15,7 @@ export class NotificationService {
     return this.notificationMessage.asObservable()
   }
 
-  showNotification(message: string, status: 'success' | 'error', delayTime = 5000): void {
+  showNotification(message: string, status: 'success' | 'error' | 'warning', delayTime = 5000): void {
     this.notificationMessage.next({ message, status });
     of(null).pipe(delay(delayTime)).subscribe(() => this.notificationMessage.next(null))
   }

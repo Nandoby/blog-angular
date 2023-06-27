@@ -63,7 +63,7 @@ export class AuthService {
 
   logout(showNotification = false) {
     if (showNotification) {
-      this.notificationService.showNotification('Votre session a expiré. Veuillez vous reconnecter', 'error')
+      this.notificationService.showNotification('Votre session a expiré. Veuillez vous reconnecter', 'warning')
       setTimeout(() => {
         localStorage.removeItem('access_token');
         localStorage.removeItem('user');

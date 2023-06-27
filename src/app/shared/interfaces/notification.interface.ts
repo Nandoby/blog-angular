@@ -1,4 +1,4 @@
 export interface Notification {
   message: string
-  status: 'success' | 'error'
+  status: 'success' | 'error' | 'warning'
 }
