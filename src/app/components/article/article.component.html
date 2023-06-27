@@ -28,7 +28,7 @@
     <img class="mt-3 w-full" [src]="article.coverImage" [alt]="article.title">
 
     <!-- Contenu de l'article -->
-    <div *ngIf="!isEdited; else edit" [innerHtml]="article.content" class="article-content"></div>
+    <div *ngIf="!isEdited; else edit" [innerHtml]="article.content" class="article-content my-6"></div>
 
     <ng-template #edit>
       <!--      <ckeditor [config]="model.config" [editor]="Editor" [(ngModel)]="model.editorData"></ckeditor>-->
