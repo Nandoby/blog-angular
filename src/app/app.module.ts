@@ -4,7 +4,6 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
-import { HomeComponent } from './components/home/home.component';
 import { AppRoutingModule } from './app-routing.module';
 import { ArticleComponent } from './components/article/article.component';
 import { ArticlesComponent } from './components/articles/articles.component';
@@ -24,7 +23,6 @@ import { EffectsModule } from '@ngrx/effects';
   declarations: [
     AppComponent,
     HeaderComponent,
-    HomeComponent,
     ArticleComponent,
     ArticlesComponent,
     SearchComponent,

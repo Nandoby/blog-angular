@@ -14,7 +14,7 @@ import { LoginComponent } from './components/auth/login/login.component';
 import { RegisterComponent } from './components/auth/register/register.component';
 
 const routes: Routes = [
-  { path: '', component: HomeComponent },
+  { path: '', loadChildren: () => import('./components/home/home.module').then((m) => m.HomeModule) },
   { path: 'articles', component: ArticlesComponent },
   {
     path: 'articles/category/:id',
