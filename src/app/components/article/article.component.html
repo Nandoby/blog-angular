@@ -1,4 +1,4 @@
-<main>
+<main *ngIf="article$ | async; let article">
   <header class="bg-black text-white py-6">
     <div class="container mx-auto flex justify-between">
       <div>
@@ -23,7 +23,6 @@
     <div *ngIf="!isEdited; else edit" [innerHtml]="article.content" class="article-content my-6"></div>
 
     <ng-template #edit>
-      <!--      <ckeditor [config]="model.config" [editor]="Editor" [(ngModel)]="model.editorData"></ckeditor>-->
       <editor [init]="tinyConfig" plugins="image preview" apiKey="ye8kq6lbncaok8cqazzoxs36kff3krlm3g59n8hqddyzur6v"
               initialValue="<p>Hello world</p>"
               [(ngModel)]="tinyData"></editor>
@@ -34,17 +33,17 @@
       <button *ngIf="!isEdited" (click)="clickEdition()" class="btn btn-info my-3"><i class="fa-solid fa-pen"></i>
         Modifier
       </button>
-      <button *ngIf="isEdited" class="btn btn-success my-3" (click)="confirmEdition()">Confirmer</button>
+      <!-- <button *ngIf="isEdited" class="btn btn-success my-3" (click)="confirmEdition()">Confirmer</button> -->
     </div>
 
     <hr class="mb-5">
 
 
     <!-- Navigation entre articles -->
-    <div class="flex">
+    <div class="flex" *ngIf="previousArticle$ | async; let previousArticle">
 
       <div class="flex-1">
-        <a class="group" *ngIf="previousArticle" [routerLink]="'../'+previousArticle.id">
+        <a class="group" [routerLink]="'../'+previousArticle.id">
           <div class="flex space-x-3">
             <img class="w-24 group-hover:-translate-y-1 group-hover:ease-in group-hover:duration-300"
                  [src]="previousArticle.coverImage" alt="">
@@ -57,7 +56,7 @@
       </div>
 
       <div class="flex-1">
-        <a class="group" *ngIf="nextArticle" [routerLink]="'../'+nextArticle.id">
+        <a class="group"  *ngIf="nextArticle" [routerLink]="'../'+nextArticle.id">
           <div class="flex space-x-3">
             <img class="w-24 group-hover:-translate-y-1 group-hover:ease-in group-hover:duration-300"
                  [src]="nextArticle.coverImage" alt="">

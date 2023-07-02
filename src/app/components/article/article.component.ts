@@ -4,9 +4,12 @@ import {Article, ArticleUpdate} from 'src/app/shared/interfaces/article/article.
 import { HttpErrorResponse } from '@angular/common/http';
 import { User } from 'src/app/shared/interfaces/user.interface';
 import { AuthService } from 'src/app/shared/services/auth.service';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { ArticlesService } from '../../shared/services/articles.service';
 import {NotificationService} from "../../shared/services/notification.service";
+import { Store } from '@ngrx/store';
+import { ArticleAPIActions } from './store/article.actions';
+import { selectArticle, selectPreviousArticle } from './store/article.selectors';
 
 @Component({
   selector: 'app-article',
@@ -18,11 +21,14 @@ export class ArticleComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private authService: AuthService,
     private articleService: ArticlesService,
-    private notificationService: NotificationService
+    private notificationService: NotificationService,
+    private store: Store
   ) {}
 
-  public article!: Article;
-  public previousArticle!: Article | null;
+  public article$: Observable<Article> = this.store.select(selectArticle).pipe(
+    tap((value) => console.log(value))
+  )
+  public previousArticle$: Observable<Article> = this.store.select(selectPreviousArticle)
   public nextArticle!: Article | null;
   public isEdited!: boolean;
   public user!: User | null;
@@ -35,26 +41,31 @@ export class ArticleComponent implements OnInit {
   );
 
   ngOnInit() {
+
+    this.store.dispatch(ArticleAPIActions.loadArticle())
+
     this.isEdited$.subscribe((edit) => (this.isEdited = edit));
 
-    this.activatedRoute.data.subscribe(({ data }) => {
-      this.article = data;
-      this.tinyData = this.article.content
-    });
 
-    this.activatedRoute.data.subscribe(({ previous, next }) => {
-      if (previous instanceof HttpErrorResponse) {
-        this.previousArticle = null;
-      } else {
-        this.previousArticle = previous;
-      }
 
-      if (next instanceof HttpErrorResponse) {
-        this.nextArticle = null;
-      } else {
-        this.nextArticle = next;
-      }
-    });
+    // this.activatedRoute.data.subscribe(({ data }) => {
+    //   this.article = data;
+    //   this.tinyData = this.article.content
+    // });
+
+    // this.activatedRoute.data.subscribe(({ previous, next }) => {
+    //   if (previous instanceof HttpErrorResponse) {
+    //     this.previousArticle = null;
+    //   } else {
+    //     this.previousArticle = previous;
+    //   }
+
+    //   if (next instanceof HttpErrorResponse) {
+    //     this.nextArticle = null;
+    //   } else {
+    //     this.nextArticle = next;
+    //   }
+    // });
 
     this.authService.getCurrentUser().subscribe({
       next: (user) => (this.user = user),
@@ -65,23 +76,23 @@ export class ArticleComponent implements OnInit {
     this.isEdited$.next(true);
   }
 
-  confirmEdition() {
-    const { title, id, categories, coverImage } = this.article
-    const body: ArticleUpdate = {
-      title,
-      content: this.tinyData,
-      coverImage,
-      categories,
-    }
-    this.isEdited$.next(false);
+  // confirmEdition() {
+  //   const { title, id, categories, coverImage } = this.article
+  //   const body: ArticleUpdate = {
+  //     title,
+  //     content: this.tinyData,
+  //     coverImage,
+  //     categories,
+  //   }
+  //   this.isEdited$.next(false);
 
-    this.articleService.updateArticle(this.article.id, body).subscribe({
-      next: (value) => {
-        this.article = { ...this.article, ...value }
-      }
-    })
+  //   this.articleService.updateArticle(this.article.id, body).subscribe({
+  //     next: (value) => {
+  //       this.article = { ...this.article, ...value }
+  //     }
+  //   })
 
-    this.notificationService.showNotification('La modification a bien été appliquée', 'success');
+  //   this.notificationService.showNotification('La modification a bien été appliquée', 'success');
 
-  }
+  // }
 }
