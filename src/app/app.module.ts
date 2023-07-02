@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, isDevMode } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 
@@ -16,6 +16,9 @@ import { JwtInterceptor } from './shared/interceptors/jwt.interceptor';
 import { RegisterComponent } from './components/auth/register/register.component';
 import { EditorModule } from '@tinymce/tinymce-angular';
 import { NotificationComponent } from './shared/components/notification/notification.component';
+import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { EffectsModule } from '@ngrx/effects';
 
 @NgModule({
   declarations: [
@@ -37,6 +40,9 @@ import { NotificationComponent } from './shared/components/notification/notifica
     FormsModule,
     ReactiveFormsModule,
     EditorModule,
+    StoreModule.forRoot({}, {}),
+    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
+    EffectsModule.forRoot([]),
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
