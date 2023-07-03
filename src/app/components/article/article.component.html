@@ -40,10 +40,10 @@
 
 
     <!-- Navigation entre articles -->
-    <div class="flex" *ngIf="previousArticle$ | async; let previousArticle">
+    <div class="flex">
 
       <div class="flex-1">
-        <a class="group" [routerLink]="'../'+previousArticle.id">
+        <a class="group"  *ngIf="previousArticle$ | async as previousArticle" [routerLink]="'../'+previousArticle.id">
           <div class="flex space-x-3">
             <img class="w-24 group-hover:-translate-y-1 group-hover:ease-in group-hover:duration-300"
                  [src]="previousArticle.coverImage" alt="">
@@ -56,7 +56,7 @@
       </div>
 
       <div class="flex-1">
-        <a class="group"  *ngIf="nextArticle" [routerLink]="'../'+nextArticle.id">
+        <a class="group"  *ngIf="nextArticle$ | async as nextArticle" [routerLink]="'../'+nextArticle.id">
           <div class="flex space-x-3">
             <img class="w-24 group-hover:-translate-y-1 group-hover:ease-in group-hover:duration-300"
                  [src]="nextArticle.coverImage" alt="">

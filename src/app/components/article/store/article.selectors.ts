@@ -23,3 +23,10 @@ export const selectPreviousArticle = createSelector(
     return state.previousArticle
   }
 )
+
+export const selectNextArticle = createSelector(
+  selectArticleFeature,
+  (state: ArticleState): Article => {
+    return state.nextArticle
+  }
+)

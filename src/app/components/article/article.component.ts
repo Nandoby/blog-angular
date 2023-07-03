@@ -9,7 +9,7 @@ import { ArticlesService } from '../../shared/services/articles.service';
 import {NotificationService} from "../../shared/services/notification.service";
 import { Store } from '@ngrx/store';
 import { ArticleAPIActions } from './store/article.actions';
-import { selectArticle, selectPreviousArticle } from './store/article.selectors';
+import { selectArticle, selectNextArticle, selectPreviousArticle } from './store/article.selectors';
 
 @Component({
   selector: 'app-article',
@@ -27,7 +27,7 @@ export class ArticleComponent implements OnInit {
 
   public article$: Observable<Article> = this.store.select(selectArticle)
   public previousArticle$: Observable<Article> = this.store.select(selectPreviousArticle)
-  public nextArticle!: Article | null;
+  public nextArticle$: Observable<Article> = this.store.select(selectNextArticle)
   public isEdited!: boolean;
   public user!: User | null;
   public tinyData = ''
