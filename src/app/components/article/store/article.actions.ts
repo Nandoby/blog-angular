@@ -4,7 +4,9 @@ import { Article } from "src/app/shared/interfaces/article/article.interface";
 
 export const ArticleActions = createActionGroup({
   source: 'Article',
-  events: {}
+  events: {
+    'Edit Article': emptyProps()
+  }
 })
 
 export const ArticleAPIActions = createActionGroup({

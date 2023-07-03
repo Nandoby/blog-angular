@@ -1,22 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import {Article, ArticleUpdate} from 'src/app/shared/interfaces/article/article.interface';
 import { HttpErrorResponse } from '@angular/common/http';
 import { User } from 'src/app/shared/interfaces/user.interface';
 import { AuthService } from 'src/app/shared/services/auth.service';
-import { BehaviorSubject, Observable, first, switchMap, of } from 'rxjs';
+import { BehaviorSubject, Observable, first, switchMap, of, tap, Subscription, takeLast, takeUntil, take, last, skip } from 'rxjs';
 import { ArticlesService } from '../../shared/services/articles.service';
 import {NotificationService} from "../../shared/services/notification.service";
 import { Store } from '@ngrx/store';
-import { ArticleAPIActions } from './store/article.actions';
-import { selectArticle, selectNextArticle, selectPreviousArticle } from './store/article.selectors';
+import { ArticleAPIActions, ArticleActions } from './store/article.actions';
+import { selectArticle, selectIsEdited, selectNextArticle, selectPreviousArticle } from './store/article.selectors';
 
 @Component({
   selector: 'app-article',
   templateUrl: './article.component.html',
   styleUrls: ['./article.component.css'],
 })
-export class ArticleComponent implements OnInit {
+export class ArticleComponent implements OnInit, OnDestroy {
   constructor(
     private activatedRoute: ActivatedRoute,
     private authService: AuthService,
@@ -28,37 +28,55 @@ export class ArticleComponent implements OnInit {
   public article$: Observable<Article> = this.store.select(selectArticle)
   public previousArticle$: Observable<Article> = this.store.select(selectPreviousArticle)
   public nextArticle$: Observable<Article> = this.store.select(selectNextArticle)
-  public isEdited!: boolean;
+  public isEdited$: Observable<boolean> = this.store.select(selectIsEdited)
+  public isEdited!: boolean
+  public subscription = new Subscription()
   public user!: User | null;
   public tinyData = ''
-  public tinyConfig = {
-
-  }
-  private isEdited$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(
-    false
-  );
+  public tinyConfig = {}
 
   ngOnInit() {
 
     this.store.dispatch(ArticleAPIActions.loadArticle())
-
-    this.isEdited$.subscribe((edit) => (this.isEdited = edit));
-
+    this.subscription.add(this.isEdited$.subscribe((value) => this.isEdited = value))
     this.activatedRoute.paramMap.subscribe({
-      next: () => this.store.dispatch(ArticleAPIActions.loadArticle())
+      next: () => {
+        this.store.dispatch(ArticleAPIActions.loadArticle())
+      }
     })
 
     this.authService.getCurrentUser().subscribe({
       next: (user) => (this.user = user),
     });
+
+    this.article$.pipe(
+      skip(1)
+    ).subscribe({
+      next: (value: Article) => this.tinyData = value.content
+    })
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe()
   }
 
   clickEdition() {
-    this.isEdited$.next(true);
+    this.store.dispatch(ArticleActions.editArticle())
   }
 
-  // confirmEdition() {
+  confirmEdition() {
   //   const { title, id, categories, coverImage } = this.article
+
+  const article = {}
+
+  this.article$.pipe(
+    first(),
+    tap((value) => {
+
+    })
+  ).subscribe()
+
+  this.store.dispatch(ArticleActions.editArticle())
   //   const body: ArticleUpdate = {
   //     title,
   //     content: this.tinyData,
@@ -75,5 +93,5 @@ export class ArticleComponent implements OnInit {
 
   //   this.notificationService.showNotification('La modification a bien été appliquée', 'success');
 
-  // }
+  }
 }

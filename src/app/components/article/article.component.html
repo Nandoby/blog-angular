@@ -18,13 +18,12 @@
     </div>
   </header>
   <section class="p-6 w-full mt-24 container mx-auto">
-
     <!-- Contenu de l'article -->
     <div *ngIf="!isEdited; else edit" [innerHtml]="article.content" class="article-content my-6"></div>
 
     <ng-template #edit>
       <editor [init]="tinyConfig" plugins="image preview" apiKey="ye8kq6lbncaok8cqazzoxs36kff3krlm3g59n8hqddyzur6v"
-              initialValue="<p>Hello world</p>"
+              [initialValue]="article.content"
               [(ngModel)]="tinyData"></editor>
     </ng-template>
 
@@ -33,7 +32,7 @@
       <button *ngIf="!isEdited" (click)="clickEdition()" class="btn btn-info my-3"><i class="fa-solid fa-pen"></i>
         Modifier
       </button>
-      <!-- <button *ngIf="isEdited" class="btn btn-success my-3" (click)="confirmEdition()">Confirmer</button> -->
+      <button *ngIf="isEdited" class="btn btn-success my-3" (click)="confirmEdition()">Confirmer</button>
     </div>
 
     <hr class="mb-5">

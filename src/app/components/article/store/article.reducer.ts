@@ -1,6 +1,6 @@
 import { createReducer, on } from "@ngrx/store";
 import { ArticleState } from "./article.selectors";
-import { ArticleAPIActions } from "./article.actions";
+import { ArticleAPIActions, ArticleActions } from "./article.actions";
 
 export const initialArticleState: ArticleState = {
   data: {
@@ -50,7 +50,8 @@ export const initialArticleState: ArticleState = {
     },
     comments: [],
     categories: []
-  }
+  },
+  isEdited: false
 }
 
 export const articleReducer = createReducer(
@@ -60,7 +61,13 @@ export const articleReducer = createReducer(
       ...state,
       data: article,
       nextArticle: next,
-      previousArticle: previous
+      previousArticle: previous,
+    }
+  }),
+  on(ArticleActions.editArticle, (state) => {
+    return {
+      ...state,
+      isEdited: !state.isEdited
     }
   })
 )
