@@ -4,7 +4,7 @@ import {Article, ArticleUpdate} from 'src/app/shared/interfaces/article/article.
 import { HttpErrorResponse } from '@angular/common/http';
 import { User } from 'src/app/shared/interfaces/user.interface';
 import { AuthService } from 'src/app/shared/services/auth.service';
-import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { BehaviorSubject, Observable, first, switchMap, of } from 'rxjs';
 import { ArticlesService } from '../../shared/services/articles.service';
 import {NotificationService} from "../../shared/services/notification.service";
 import { Store } from '@ngrx/store';
@@ -25,9 +25,7 @@ export class ArticleComponent implements OnInit {
     private store: Store
   ) {}
 
-  public article$: Observable<Article> = this.store.select(selectArticle).pipe(
-    tap((value) => console.log(value))
-  )
+  public article$: Observable<Article> = this.store.select(selectArticle)
   public previousArticle$: Observable<Article> = this.store.select(selectPreviousArticle)
   public nextArticle!: Article | null;
   public isEdited!: boolean;
@@ -46,26 +44,9 @@ export class ArticleComponent implements OnInit {
 
     this.isEdited$.subscribe((edit) => (this.isEdited = edit));
 
-
-
-    // this.activatedRoute.data.subscribe(({ data }) => {
-    //   this.article = data;
-    //   this.tinyData = this.article.content
-    // });
-
-    // this.activatedRoute.data.subscribe(({ previous, next }) => {
-    //   if (previous instanceof HttpErrorResponse) {
-    //     this.previousArticle = null;
-    //   } else {
-    //     this.previousArticle = previous;
-    //   }
-
-    //   if (next instanceof HttpErrorResponse) {
-    //     this.nextArticle = null;
-    //   } else {
-    //     this.nextArticle = next;
-    //   }
-    // });
+    this.activatedRoute.paramMap.subscribe({
+      next: () => this.store.dispatch(ArticleAPIActions.loadArticle())
+    })
 
     this.authService.getCurrentUser().subscribe({
       next: (user) => (this.user = user),
