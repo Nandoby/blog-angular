@@ -5,7 +5,8 @@ export interface ArticleState {
   data: Article,
   previousArticle: Article,
   nextArticle: Article,
-  isEdited: boolean
+  isEdited: boolean,
+  error: any
 }
 
 

@@ -1,10 +1,11 @@
 import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { ArticlesService } from "src/app/shared/services/articles.service";
-import { ArticleAPIActions } from "./article.actions";
-import { forkJoin, map, switchMap, withLatestFrom } from "rxjs";
+import { ArticleAPIActions, ArticleActions } from "./article.actions";
+import { catchError, forkJoin, map, switchMap, withLatestFrom, of, tap } from "rxjs";
 import { Store, select } from "@ngrx/store";
 import { selectRouteParams } from "src/app/shared/store/router.selectors";
+import { Article } from "src/app/shared/interfaces/article/article.interface";
 
 @Injectable()
 export class ArticleEffects {
@@ -24,5 +25,13 @@ export class ArticleEffects {
         map(({ article, previousArticle, nextArticle}) => ArticleAPIActions.successArticle({ article, next: nextArticle, previous: previousArticle }))
       )
     })
+  ))
+
+  editArticle = createEffect(() => this.actions$.pipe(
+    ofType(ArticleActions.confirmEditArticle),
+    switchMap(({ article, content }) => this.articleService.updateArticle(article.id, { ...article, content }).pipe(
+      map((article: Article) => ArticleAPIActions.successEditArticle({ article })),
+      catchError((err: any) => of(ArticleAPIActions.errorEditArticle({ err })))
+    ))
   ))
 }

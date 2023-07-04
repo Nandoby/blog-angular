@@ -1,6 +1,8 @@
 import { createReducer, on } from "@ngrx/store";
 import { ArticleState } from "./article.selectors";
 import { ArticleAPIActions, ArticleActions } from "./article.actions";
+import { EMPTY } from "rxjs";
+import { Article } from "src/app/shared/interfaces/article/article.interface";
 
 export const initialArticleState: ArticleState = {
   data: {
@@ -51,7 +53,8 @@ export const initialArticleState: ArticleState = {
     comments: [],
     categories: []
   },
-  isEdited: false
+  isEdited: false,
+  error: EMPTY,
 }
 
 export const articleReducer = createReducer(
@@ -67,7 +70,20 @@ export const articleReducer = createReducer(
   on(ArticleActions.editArticle, (state) => {
     return {
       ...state,
-      isEdited: !state.isEdited
+      isEdited: true
+    }
+  }),
+  on(ArticleAPIActions.successEditArticle, (state: ArticleState, { article }: { article: Article }) => {
+    return {
+      ...state,
+      data: article,
+      isEdited: false
+    }
+  }),
+  on(ArticleAPIActions.errorEditArticle, (state: ArticleState, { err }) => {
+    return {
+      ...state,
+      error: err
     }
   })
 )

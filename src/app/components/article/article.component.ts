@@ -65,18 +65,17 @@ export class ArticleComponent implements OnInit, OnDestroy {
   }
 
   confirmEdition() {
+
+    const content = this.tinyData
+
+    this.article$.pipe(
+      first(),
+      tap((article: Article) => {
+        this.store.dispatch(ArticleActions.confirmEditArticle({ article, content }))
+      })
+    ).subscribe()
+
   //   const { title, id, categories, coverImage } = this.article
-
-  const article = {}
-
-  this.article$.pipe(
-    first(),
-    tap((value) => {
-
-    })
-  ).subscribe()
-
-  this.store.dispatch(ArticleActions.editArticle())
   //   const body: ArticleUpdate = {
   //     title,
   //     content: this.tinyData,
