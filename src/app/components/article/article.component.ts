@@ -74,23 +74,5 @@ export class ArticleComponent implements OnInit, OnDestroy {
         this.store.dispatch(ArticleActions.confirmEditArticle({ article, content }))
       })
     ).subscribe()
-
-  //   const { title, id, categories, coverImage } = this.article
-  //   const body: ArticleUpdate = {
-  //     title,
-  //     content: this.tinyData,
-  //     coverImage,
-  //     categories,
-  //   }
-  //   this.isEdited$.next(false);
-
-  //   this.articleService.updateArticle(this.article.id, body).subscribe({
-  //     next: (value) => {
-  //       this.article = { ...this.article, ...value }
-  //     }
-  //   })
-
-  //   this.notificationService.showNotification('La modification a bien été appliquée', 'success');
-
   }
 }

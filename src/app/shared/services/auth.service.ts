@@ -6,14 +6,14 @@ import { RegisterInterface } from '../interfaces/auth/register.interface';
 import { User } from '../interfaces/user.interface';
 import {NotificationService} from "./notification.service";
 
-interface AuthResponse {
+export interface AuthResponse {
   access_token: string;
   user: {
     id: number;
     username: string;
     email: string;
     picture: string;
-    roles: ['User', 'Admin'];
+    roles: ["User" | "Admin"];
   };
 }
 
@@ -43,14 +43,18 @@ export class AuthService {
   }
 
   login(user: LoginInterface): Observable<AuthResponse> {
-    return this.httpClient.post<AuthResponse>(this.loginURL, user).pipe(
-      tap((res: AuthResponse) => {
-        localStorage.setItem('access_token', res.access_token);
-        localStorage.setItem('user', JSON.stringify(res.user));
-        this.user.next(this.getUser());
-      })
-    );
+    return this.httpClient.post<AuthResponse>(this.loginURL, user);
   }
+
+  // login(user: LoginInterface): Observable<AuthResponse> {
+  //   return this.httpClient.post<AuthResponse>(this.loginURL, user).pipe(
+  //     tap((res: AuthResponse) => {
+  //       localStorage.setItem('access_token', res.access_token);
+  //       localStorage.setItem('user', JSON.stringify(res.user));
+  //       this.user.next(this.getUser());
+  //     })
+  //   );
+  // }
 
  private getUser() {
     const user = localStorage.getItem('user');

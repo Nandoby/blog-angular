@@ -1,8 +1,8 @@
 export interface User {
-  id: number
+  id?: number
   username: string
   email: string
   picture: string
-  password: string
+  password?: string
   roles: ['Admin' | 'User']
 }
