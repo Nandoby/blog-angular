@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { ArticlesService } from '../../shared/services/articles.service';
 import { Article } from '../../shared/interfaces/article/article.interface';
+import { Store } from '@ngrx/store';
+import { fetchArticlesAction, fetchArticlesByCategoryAction } from './shared/store/articles.actions';
+import { selectArticles } from './shared/store/articles.selectors';
 
 @Component({
   selector: 'app-articles',
@@ -11,21 +14,18 @@ import { Article } from '../../shared/interfaces/article/article.interface';
 export class ArticlesComponent implements OnInit {
   constructor(
     private activatedRoute: ActivatedRoute,
-    private articlesService: ArticlesService
+    private store: Store
   ) {}
 
-  articles!: Article[];
+  articles$ = this.store.select(selectArticles)
 
   ngOnInit() {
     this.activatedRoute.paramMap.subscribe((params: ParamMap) => {
       if (params.has('id')) {
-        this.activatedRoute.data.subscribe(
-          ({ data }) => (this.articles = data)
-        );
+        const idCategory = params.get('id')
+        this.store.dispatch(fetchArticlesByCategoryAction( { id: idCategory}))
       } else {
-        this.articlesService.findAllArticles().subscribe((data: Article[]) => {
-          this.articles = data
-        });
+        this.store.dispatch(fetchArticlesAction())
       }
     });
   }
