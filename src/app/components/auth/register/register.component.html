@@ -1,1 +1,49 @@
-<p>Register works</p>
+<h1 class="text-center font-bold text-2xl mt-12">Inscrivez-vous</h1>
+
+<form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 w-1/2 mx-auto mt-12" [formGroup]="form" (ngSubmit)="submit()">
+  <div class="mb-4">
+    <label class="block text-gray-700 text-sm font-bold mb-2" for="username">
+      Username
+    </label>
+
+    <input formControlName="username" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight" type="text" placeholder="Username" id="username">
+    <div *ngIf="form.get('username')?.hasError('required') && form.get('username')?.touched" class="text-red-500 text-xs italic mt-2">
+      Veuillez entre votre nom
+    </div>
+  </div>
+  <div class="mb-6">
+    <label for="email" class="block text-gray-700 text-sm font-bold mb-2">
+      Email
+    </label>
+    <input formControlName="email" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight" type="email" placeholder="Email" id="email">
+    <div *ngIf="form.get('email')?.hasError('required') && form.get('email')?.touched" class="text-red-500 text-xs italic mt-2">
+      Veuillez entrer votre adresse email.
+    </div>
+  </div>
+  <div class="mb-6">
+    <label for="password" class="block text-gray-700 text-sm font-bold mb-2">
+      Mot de passe
+    </label>
+    <input formControlName="password" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight" type="password" placeholder="Mot de passe" id="password">
+    <div *ngIf="form.get('password')?.hasError('required') && form.get('password')?.touched" class="text-red-500 text-xs italic mt-2">
+      Veuillez entrer votre mot de passe
+    </div>
+  </div>
+  <div class="mb-6">
+    <label for="picture" class="block text-gray-700 text-sm font-bold mb-2">
+      Avatar
+    </label>
+    <input formControlName="picture" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight" type="text" placeholder="Url de votre avatar" id="picture">
+    <div *ngIf="form.get('picture')?.hasError('pattern')" class="text-red-500 text-xs italic mt-2">
+      Veuillez entrer une adresse URL valide
+    </div>
+  </div>
+
+  <div *ngIf="error$ | async as error" class="text-red-500 text-center mb-3">
+    {{ error.error?.message }}
+  </div>
+
+  <button class="btn btn-primary" type="submit">
+    S'inscrire
+  </button>
+</form>

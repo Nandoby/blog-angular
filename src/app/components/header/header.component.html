@@ -30,7 +30,7 @@
       <div *ngIf="user$ | async as user; else inscription">
         <li *ngIf="user.email">
           <div class="dropdown">
-            <img tabindex="0" [src]="user.picture" class="w-12 rounded-full cursor-pointer" />
+            <img tabindex="0" [src]="user.picture.startsWith('http') ? user.picture : '../../../assets/images/default.png'" class="w-12 rounded-full cursor-pointer" />
             <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
               <li (click)="logout()"><a class="p-3 text-neutral-800 font-medium hover:text-red-500 rounded-sm" routerLink="auth/login"><i
                 class="fa-solid fa-user"></i> Déconnexion</a></li>

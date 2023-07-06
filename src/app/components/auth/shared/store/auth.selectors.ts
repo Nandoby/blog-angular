@@ -12,3 +12,8 @@ export const selectIsLoggedin = createSelector(
   selectAuthFeature,
   (state: AuthState) => state.isLoggedin
 )
+
+export const selectError = createSelector(
+  selectAuthFeature,
+  (state: AuthState) => state.error
+)

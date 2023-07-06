@@ -23,4 +23,18 @@ export class AuthEffects {
     })
   ))
 
+  tryInscriptionEffect = createEffect(() => this.actions$.pipe(
+    ofType(AuthActions.tryInscriptionAction),
+    switchMap(({ user }) => {
+      console.log(user)
+      return this.authService.register(user).pipe(
+        map((value) => {
+          this.router.navigateByUrl('/auth/login')
+          return AuthActions.inscriptionSuccessAction()
+        }),
+        catchError((error) => of(AuthActions.inscriptionErrorAction({ error })))
+      )
+    })
+  ))
+
 }

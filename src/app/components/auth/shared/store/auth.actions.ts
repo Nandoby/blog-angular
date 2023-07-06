@@ -3,6 +3,7 @@ import { LoginInterface } from "src/app/shared/interfaces/auth/login.interface";
 import { AuthResponse } from "src/app/shared/services/auth.service";
 import { Error } from "../interfaces/error.interface";
 import { User } from "src/app/shared/interfaces/user.interface";
+import { Inscription } from "../interfaces/inscription.interface";
 
 export const tryLoginAction = createAction(
   '[auth] try login',
@@ -24,4 +25,18 @@ export const currentUserAction = createAction(
 
 export const logoutAction = createAction(
   '[auth] logout'
+)
+
+export const tryInscriptionAction = createAction(
+  '[auth] try inscription',
+  props<{ user: Inscription }>()
+)
+
+export const inscriptionSuccessAction = createAction(
+  '[auth] inscription success',
+)
+
+export const inscriptionErrorAction = createAction(
+  '[auth] inscription error',
+  props<{ error: Error}>()
 )

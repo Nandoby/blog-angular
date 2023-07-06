@@ -56,5 +56,17 @@ export const authReducer = createReducer<AuthState>(
       user: null,
       isLoggedin: false
     }
+  }),
+  on(AuthActions.inscriptionSuccessAction, (state: AuthState) => {
+    return {
+      ...state,
+      error: null
+    }
+  }),
+  on(AuthActions.inscriptionErrorAction, (state: AuthState, { error }) => {
+    return {
+      ...state,
+      error
+    }
   })
 )
