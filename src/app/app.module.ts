@@ -14,6 +14,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { EffectsModule } from '@ngrx/effects';
 import { SharedModule } from './shared/shared.module';
 import { StoreRouterConnectingModule, routerReducer } from '@ngrx/router-store';
+import { authReducer } from './components/auth/shared/store/auth.reducer';
 
 @NgModule({
   declarations: [AppComponent, HeaderComponent],
@@ -24,7 +25,7 @@ import { StoreRouterConnectingModule, routerReducer } from '@ngrx/router-store';
     FormsModule,
     SharedModule,
     ReactiveFormsModule,
-    StoreModule.forRoot({ router: routerReducer }),
+    StoreModule.forRoot({ router: routerReducer, auth: authReducer }),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
     EffectsModule.forRoot([]),
     StoreRouterConnectingModule.forRoot(),

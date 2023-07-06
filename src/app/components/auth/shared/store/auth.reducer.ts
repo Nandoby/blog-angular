@@ -4,7 +4,7 @@ import * as AuthActions from './auth.actions'
 import { Error } from "../interfaces/error.interface";
 
 export interface AuthState {
-  user: User,
+  user: User | null,
   access_token: string;
   isLoggedin: boolean,
   error: Error|null
@@ -37,6 +37,24 @@ export const authReducer = createReducer<AuthState>(
     return {
       ...state,
       error
+    }
+  }),
+  on(AuthActions.currentUserAction, (state, { access_token, user }) => {
+    return {
+      ...state,
+      user,
+      access_token,
+      isLoggedin: access_token ? true : false
+    }
+  }),
+  on(AuthActions.logoutAction, (state: AuthState) => {
+    localStorage.removeItem('auth')
+    return {
+      ...state,
+      access_token: '',
+      error: null,
+      user: null,
+      isLoggedin: false
     }
   })
 )

@@ -4,10 +4,11 @@ import { Category } from '../../shared/interfaces/category.interface';
 import { ArticlesService } from '../../shared/services/articles.service';
 import { Router } from '@angular/router';
 import { AuthService } from '../../shared/services/auth.service';
-import { Observable, Subscription, filter, first, tap } from 'rxjs';
+import { BehaviorSubject, Observable, Subscription, filter, first, tap } from 'rxjs';
 import { User } from '../../shared/interfaces/user.interface';
 import { Store } from '@ngrx/store';
-import { selectUser } from '../auth/shared/store/auth.selectors';
+import { selectIsLoggedin, selectUser } from '../auth/shared/store/auth.selectors';
+import { logoutAction } from '../auth/shared/store/auth.actions';
 
 @Component({
   selector: 'app-header',
@@ -22,7 +23,7 @@ export class HeaderComponent implements OnInit {
     private store: Store
   ) {}
 
-  user$ = this.store.select(selectUser)
+  user$!: Observable<User|null>
   categories!: Category[];
   search: string = '';
   subscription!: Subscription;
@@ -35,9 +36,13 @@ export class HeaderComponent implements OnInit {
 
   public logout() {
     // this.authService.logout();
+    this.store.dispatch(logoutAction())
   }
 
   ngOnInit() {
+
+    this.user$ = this.store.select(selectUser)
+
     this.categoriesService.getCategories().subscribe({
       next: (value: Category[]) => {
         this.categories = value;

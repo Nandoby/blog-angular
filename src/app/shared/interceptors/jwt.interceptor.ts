@@ -14,9 +14,13 @@ export class JwtInterceptor implements HttpInterceptor {
   constructor(private notificationService: NotificationService, private authService: AuthService) { }
 
   intercept(request: HttpRequest<any>, next: HttpHandler) {
-    let token = localStorage.getItem('access_token');
+    let auth = localStorage.getItem('auth');
 
-    if (token) {
+    if (auth) {
+
+      let authParsed = JSON.parse(auth)
+      let token = authParsed.access_token
+
       const decodedToken = jwt_Decode(token)
       const currentTime = Date.now() / 1000;
 

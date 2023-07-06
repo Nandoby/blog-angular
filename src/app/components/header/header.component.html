@@ -27,8 +27,8 @@
 
       <!-- Inscription/Connexion -->
 
-      <div *ngIf="user$ | async; let user">
-        <li *ngIf="user; else inscription">
+      <div *ngIf="user$ | async as user; else inscription">
+        <li *ngIf="user.email">
           <div class="dropdown">
             <img tabindex="0" [src]="user.picture" class="w-12 rounded-full cursor-pointer" />
             <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
@@ -38,11 +38,11 @@
             </ul>
           </div>
         </li>
-        <ng-template #inscription>
-          <li><a class="p-3 text-neutral-800 font-medium hover:text-red-500 rounded-sm" routerLink="auth/login"><i
-            class="fa-solid fa-user"></i> Inscription / Connexion</a></li>
-        </ng-template>
       </div>
+      <ng-template #inscription>
+        <li><a class="p-3 text-neutral-800 font-medium hover:text-red-500 rounded-sm" routerLink="auth/login"><i
+          class="fa-solid fa-user"></i> Inscription / Connexion</a></li>
+      </ng-template>
 
 
 

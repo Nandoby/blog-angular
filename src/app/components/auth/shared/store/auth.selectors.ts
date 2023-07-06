@@ -7,3 +7,8 @@ export const selectUser = createSelector(
   selectAuthFeature,
   (state: AuthState) => state?.user
 )
+
+export const selectIsLoggedin = createSelector(
+  selectAuthFeature,
+  (state: AuthState) => state.isLoggedin
+)

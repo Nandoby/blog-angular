@@ -10,6 +10,7 @@ import {NotificationService} from "../../shared/services/notification.service";
 import { Store } from '@ngrx/store';
 import { ArticleAPIActions, ArticleActions } from './store/article.actions';
 import { selectArticle, selectIsEdited, selectNextArticle, selectPreviousArticle } from './store/article.selectors';
+import { selectUser } from '../auth/shared/store/auth.selectors';
 
 @Component({
   selector: 'app-article',
@@ -30,12 +31,18 @@ export class ArticleComponent implements OnInit, OnDestroy {
   public nextArticle$: Observable<Article> = this.store.select(selectNextArticle)
   public isEdited$: Observable<boolean> = this.store.select(selectIsEdited)
   public isEdited!: boolean
+  public user$ = this.store.select(selectUser)
+  public user!: User|null
   public subscription = new Subscription()
-  public user!: User | null;
   public tinyData = ''
   public tinyConfig = {}
 
   ngOnInit() {
+
+    this.user$.pipe(
+      first(),
+      tap((user) => this.user = user)
+    ).subscribe()
 
     this.store.dispatch(ArticleAPIActions.loadArticle())
     this.subscription.add(this.isEdited$.subscribe((value) => this.isEdited = value))
@@ -45,9 +52,6 @@ export class ArticleComponent implements OnInit, OnDestroy {
       }
     })
 
-    this.authService.getCurrentUser().subscribe({
-      next: (user) => (this.user = user),
-    });
 
     this.article$.pipe(
       skip(1)
