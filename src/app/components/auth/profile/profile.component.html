@@ -1,15 +1,36 @@
-<div class="h-screen flex items-center bg-black text-white">
-  <div *ngIf="user$ | async; let user" class="container mx-auto">
+<section *ngIf="user$ | async; let user">
+
+<div class="h-96 flex items-center bg-black text-white">
+  <div  class="container mx-auto">
     <h1 class="text-2xl font-bold">Bonjour {{ user.username }}</h1>
     <p class="w-4/12 mt-3">
-      Bienvenue sur la page de votre profil, dans cette section vous pourrez voir / editer vos articles ainsi que leurs commentaires.
+      Bienvenue sur la page de votre profil, dans cette section vous pourrez <b>voir / editer</b> vos articles ainsi que leurs commentaires.
     </p>
 
     <a class="btn btn-primary mt-6">Editer votre profil</a>
   </div>
 </div>
-<div>
-  <div class="w-6/12 bg-gray-300">
-    <h3>Mon compte</h3>
+<div class="container mx-auto">
+  <div class="w-6/12 bg-gray-50 relative -top-12 p-6 shadow-md rounded-md">
+    <h3 class="text-lg font-semibold text-red-900">Mon compte</h3>
+    <h5 class="uppercase text-gray-500 text-sm font-medium mt-3">Informations sur l'utilisateur</h5>
+
+    <div class="flex flex-wrap mt-6">
+
+      <div class="w-6/12">
+        <label class="block mb-3 font-medium">Username</label>
+        <input type="text" [value]="user.username" class="p-3 border border-gray-200 rounded" >
+      </div>
+
+      <div class=" w-6/12">
+        <label class="block mb-3 font-medium">Adresse e-mail</label>
+        <input type="text" [value]="user.email" class="p-3 border border-gray-200 rounded" >
+      </div>
+
+    </div>
+
+
+
   </div>
 </div>
+</section>
