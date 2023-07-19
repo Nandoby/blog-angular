@@ -9,9 +9,10 @@ import { StoreModule } from '@ngrx/store';
 import { authReducer } from './shared/store/auth.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { AuthEffects } from './shared/store/auth.effects';
+import { ProfileComponent } from './profile/profile.component';
 
 @NgModule({
-  declarations: [LoginComponent, RegisterComponent],
+  declarations: [LoginComponent, RegisterComponent, ProfileComponent],
   imports: [
     RouterModule.forChild(AUTH_ROUTES),
     FormsModule,
