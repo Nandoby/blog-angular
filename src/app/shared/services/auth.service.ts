@@ -8,6 +8,7 @@ import {NotificationService} from "./notification.service";
 import { Store } from '@ngrx/store';
 import { selectUser } from 'src/app/components/auth/shared/store/auth.selectors';
 import { userInvalidatedAction } from 'src/app/components/auth/shared/store/auth.actions';
+import { Router } from '@angular/router';
 
 export interface AuthResponse {
   access_token: string;
@@ -35,7 +36,7 @@ export class AuthService {
   loginURL: string = 'http://localhost:3000/api/auth/login';
   registerURL: string = 'http://localhost:3000/api/auth/register';
 
-  constructor(private httpClient: HttpClient, private notificationService: NotificationService, private store: Store) {}
+  constructor(private httpClient: HttpClient, private notificationService: NotificationService, private store: Store, private router: Router) {}
 
   private user: BehaviorSubject<User | null> = new BehaviorSubject<User | null>(
     this.getUser()
