@@ -68,5 +68,11 @@ export const authReducer = createReducer<AuthState>(
       ...state,
       error
     }
+  }),
+  on(AuthActions.userInvalidatedAction, (state: AuthState) => {
+    return {
+      ...state,
+      user: null
+    }
   })
 )

@@ -1,1 +1,10 @@
-<p>Profile works !</p>
+<div class="h-screen flex items-center bg-black text-white">
+  <div *ngIf="user$ | async; let user" class="container mx-auto">
+    <h1 class="text-2xl font-bold">Bonjour {{ user.username }}</h1>
+    <p class="w-4/12 mt-3">
+      Bienvenue sur la page de votre profil, dans cette section vous pourrez voir / editer vos articles ainsi que leurs commentaires.
+    </p>
+
+    <a class="btn btn-primary mt-6">Editer votre profil</a>
+  </div>
+</div>

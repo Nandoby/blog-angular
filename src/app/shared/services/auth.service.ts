@@ -5,6 +5,9 @@ import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { RegisterInterface } from '../interfaces/auth/register.interface';
 import { User } from '../interfaces/user.interface';
 import {NotificationService} from "./notification.service";
+import { Store } from '@ngrx/store';
+import { selectUser } from 'src/app/components/auth/shared/store/auth.selectors';
+import { userInvalidatedAction } from 'src/app/components/auth/shared/store/auth.actions';
 
 export interface AuthResponse {
   access_token: string;
@@ -32,7 +35,7 @@ export class AuthService {
   loginURL: string = 'http://localhost:3000/api/auth/login';
   registerURL: string = 'http://localhost:3000/api/auth/register';
 
-  constructor(private httpClient: HttpClient, private notificationService: NotificationService) {}
+  constructor(private httpClient: HttpClient, private notificationService: NotificationService, private store: Store) {}
 
   private user: BehaviorSubject<User | null> = new BehaviorSubject<User | null>(
     this.getUser()
@@ -72,6 +75,7 @@ export class AuthService {
         localStorage.removeItem('access_token');
         localStorage.removeItem('user');
         this.user.next(null);
+        this.store.dispatch(userInvalidatedAction())
       }, 2000) // Retarder la déconnexion de 2 secondes
     } else {
       localStorage.removeItem('access_token');

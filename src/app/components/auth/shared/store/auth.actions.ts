@@ -40,3 +40,7 @@ export const inscriptionErrorAction = createAction(
   '[auth] inscription error',
   props<{ error: Error}>()
 )
+
+export const userInvalidatedAction = createAction(
+  '[auth] user invalidate'
+)
